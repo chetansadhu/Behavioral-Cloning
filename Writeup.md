@@ -116,6 +116,7 @@ The loss curve for training and testing (validation) looks as shown below.
 <a name="videos"> </a>
 Testing Videos
 ---
+The model is able to successfully run on both the tracks. Below is the link to view/download the videos for both the track.
 
 ### Track1
 [![Track 1](analysis/2018_05_10_03_01_59_622.jpg)](track1.mp4)
