@@ -13,4 +13,5 @@ Folder Structure
 * `model.h5` - Keras model file
 * `track1.mp4` - Video of car running on 1st track
 * `track2.mp4` - Video of car running on 2nd track
-* `data_run.zip` - Zip folder of the training images to run the code
+* `training data` can be found [here](https://drive.google.com/file/d/1VCiQd__1LA5zdQ4TkxofbDKCO9OILa7x/view?usp=sharing) 
+* `analysis` - Folder containing some sample images and stats images

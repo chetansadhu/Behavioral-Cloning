@@ -2,11 +2,11 @@
 
 ## Table of contents
 1. [Overview](#overview)
-2. [Visualization](visualization)
-3. [Preprocessing](preprocessing)
-3. [Model Architecture](architecture)
-4. [Training](training)
-5. [Testing Videos](videos)
+2. [Visualization](#visualization)
+3. [Preprocessing](#preprocessing)
+3. [Model Architecture](#architecture)
+4. [Training](#training)
+5. [Testing Videos](#videos)
 
 
 <a name="overview"> </a>
@@ -40,7 +40,7 @@ Image Visualization
 <img src="analysis/track1_images/right_2018_05_03_22_21_30_568.jpg" />
 <img src="analysis/track1_images/right_2018_05_03_22_21_34_658.jpg" />
 
-The example images shows two normal images, one reverse lap image and one recovery position image.
+The example images shows two normal images, one reverse lap image and one recovery position image for each camera.
 
 
 ### Example images of Track2
@@ -59,7 +59,7 @@ The example images shows two normal images, one reverse lap image and one recove
 <img src="analysis/track2_images/right_2018_05_06_20_23_09_314.jpg" />
 <img src="analysis/track2_images/right_2018_05_06_20_24_07_701.jpg" />
 
-The images shown above is one normal image and one recovery position image
+The images shown above is one normal image and one recovery position image for each camera.
 
 <a name="preprocessing"> </a>
 Preprocessing
@@ -81,6 +81,7 @@ Model Architecture
 | Convolution | Convolution with ReLU activation. Input size: 39x11x36, Filter size: 48, Kernel size: 5x5, Stride: 1x1, Padding: Valid, Output size: 35x7x48 |
 | Convolution | Convolution with ReLU activation. Input size: 35x7x48, Filter size: 64, Kernel size: 5x5, Stride: 1x1, Padding: Valid, Output size: 31x3x64 |
 | Flatten | Output size: 5952 |
+| Dropout | Probability: 0.4 |
 | Fully connected layer | Input size: 5952, Output size: 200 with ReLU |
 | Fully connected layer | Input size: 200, Output size: 75 with ReLU |
 | Fully connected layer | Input size: 75, Output size: 15 with ReLU |
@@ -98,13 +99,19 @@ For track1 - One lap of data is collected with smooth motion around the track, O
 
 For track2 - Same steps are followed to the track2 as well with some additional training data in some tough turns.
 
-All the 3 camera images are used with `0.12` correction factor for left and right images.
+All the 3 camera images are used for training process. The steering angle for left and right camera are adjusted by a correcting factor of `0.13`. The correction factor value was deduced by trial and error. In runs with slightly different values of the correction factor the car drove off the road and with some other values the model was easily overfitting and resulting in failure.
+
+A dropout layer with probability of `0.4` is used before the first fully connected layer to overcome overfitting.
 
 Model is trained with following parameters:
-* Batch size: 32
-* Loss: mse (Mean Squared Error)
-* Optimizer: adam with default learning rate (0.001)
-* Epochs: 7
+* Batch size: `32`
+* Loss: `mse (Mean Squared Error)`
+* Optimizer: `adam with default learning rate (0.001)`
+* Epochs: `7`
+
+The loss curve for training and testing (validation) looks as shown below.
+
+<img src="analysis/loss_graph.png" width="500"/>
 
 <a name="videos"> </a>
 Testing Videos
